@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import Film from './Components/Film'
 import NavBar from './Components/NavBar'
+import DetailFilm from './Components/DetailsFilm'
 import './App.css'
 class App extends React.Component {
 
@@ -12,9 +13,11 @@ class App extends React.Component {
         <div className="NavBarTop">
           <NavBar />
         </div>
-        <div className="allFilms">
+        {/* <div className="allFilms">
           <Film />
-
+        </div> */}
+        <div className="DetailFilm">
+          <DetailFilm/>
         </div>
       </React.Fragment>
     );
