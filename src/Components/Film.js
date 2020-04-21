@@ -48,6 +48,7 @@ class Film extends React.Component{
         var {isLoaded , items} = this.state;
         //variable de l'url de l'img
         var urlImg = "https://image.tmdb.org/t/p/w500";
+        // var urlMovie ="https://api.themoviedb.org/3/movie/";
         if(!isLoaded){
             // si l'état de isLoaded est différent de true (donc si c false) afficher:
            return <div>Loading...</div>;
@@ -64,6 +65,8 @@ class Film extends React.Component{
                       <div className="ListeTitre">{item.title}</div> 
                       <div className="ListeDateSortie">{item.release_date}</div>
                       <div className="ListeAvis">{item.vote_average}</div>
+                      <div><a href= {"?id-film=" + item.id}>détails</a></div>
+                      {/* <div><a href= {urlMovie + item.id + "?api_key=30b4239b5ea618dab97189fb606a4ed6&language=fr" }>détails</a></div> */}
                     </li>
                   ))}
                 </ul>
