@@ -18,9 +18,13 @@ class DetailsFilms extends React.Component {
     // récupérer l'API
     componentDidMount() {
         // mettre les données de l'aPI via son url en tableau. on chercher tous les films, traduire en francais
-        var test = '18';
+        var urlcourante = document.location.href;
+        // Supprimons l'éventuel dernier slash de l'URL
+        // var urlcourante = urlcourante.replace(/\/$/, "");
+        
+        var id = urlcourante.substring (urlcourante.lastIndexOf( "=" )+1 );
         var urlApi = 'https://api.themoviedb.org/3/movie/';
-        var urlMovie = urlApi + test + "?api_key=30b4239b5ea618dab97189fb606a4ed6&language=fr" ;
+        var urlMovie = `${urlApi + id}?api_key=30b4239b5ea618dab97189fb606a4ed6&language=fr` ;
         fetch(urlMovie)
             // on renvoie l'objet (les données API) au format json
             .then(result => result.json())
@@ -47,7 +51,7 @@ class DetailsFilms extends React.Component {
         } else {
             // sinon (si c'est true)
             return (
-
+                
                 <div className="detailDuFilm container">
                     {/* lister les noeuds du tableau items avec map() */}
                     {
@@ -58,12 +62,20 @@ class DetailsFilms extends React.Component {
                             </div>
                             <div className="col">
                             <div className="filmTitre font-weight-bold"><h1>{items.title}</h1></div>
-                            <div className="filmDateSortie"><span className="font-weight-bold">Date de sortie :</span>{items.release_date}</div>
-                            <div className="filmResume mt-2"><p>{items.overview}</p></div>
-
-                            <div className="filmAvis">{items.vote_average}</div>
+                            <div className= "filmGenre d-flex mt-2">
+                                {/* lister les noeuds du tableau items avec map() */}
+                            {items.genres.map(item => (
+                                <div key={item.id} className="">
+                                     {item.name},&nbsp; 
+                                </div>)
+                            )
+                            }
                             </div>
-                            {/* <div><a href= {urlMovie + item.id + "?api_key=30b4239b5ea618dab97189fb606a4ed6&language=fr" }>détails</a></div> */}
+                            <div className="filmDateSortie mt-2"><span className="font-weight-bold">Date de sortie : </span>{items.release_date}</div>
+                            <div className="filmResume mt-2"><p>{items.overview}</p></div>
+                            
+                            <div className="filmAvis">Note : {items.vote_average}</div>
+                            </div>
                         </div>
                     }
                 </div>

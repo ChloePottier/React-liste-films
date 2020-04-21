@@ -31,15 +31,6 @@ class Film extends React.Component {
             items: json
           });
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        // (error) => {
-        //   this.setState({
-        //     isLoaded: true,
-        //     error
-        //   });
-        // }
       )
   }
 
@@ -66,7 +57,6 @@ class Film extends React.Component {
               <div className="ListeDateSortie">{item.release_date}</div>
               <div className="ListeAvis">{item.vote_average}</div>
               <div><a href={"?id-film=" + item.id}>détails</a></div>
-              {/* <div><a href= {urlMovie + item.id + "?api_key=30b4239b5ea618dab97189fb606a4ed6&language=fr" }>détails</a></div> */}
             </div>
           ))}
         </div>
