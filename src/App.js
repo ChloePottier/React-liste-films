@@ -4,6 +4,7 @@ import Film from './Components/Film'
 import NavBar from './Components/NavBar'
 import DetailFilm from './Components/DetailsFilm'
 import './App.css'
+import ButtonDetails from './Components/ButtonDetails'
 class App extends React.Component {
 
 
@@ -14,7 +15,9 @@ class App extends React.Component {
         <div className="NavBarTop">
           <NavBar />
         </div>
-        
+        {/* <div className="allFilms">
+          <ButtonDetails />
+        </div> */}
         <div className="allFilms">
           <Film />
         </div>

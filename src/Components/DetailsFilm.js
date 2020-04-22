@@ -82,10 +82,7 @@ class DetailsFilms extends React.Component {
             );
         }
     }
-    // render(){
-    //     var urlcourante = document.location.href;
-    // <p>{urlcourante}</p>
-    // }
+
 
 }
 export default DetailsFilms;

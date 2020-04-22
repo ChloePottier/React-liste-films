@@ -2,6 +2,7 @@
 //importer les composant react dont il a besoin
 import React, { Component } from 'react' 
 import './Film.css'
+import ButtonDetails from './ButtonDetails';
 // import DetailsFilms from './DetailsFilm';
 
 
@@ -15,8 +16,13 @@ class Film extends React.Component {
       //de base, l'API n'est pas chargée donc false
       isLoaded: false,
       //création d'un tableau vide
-      items: []
+      items: [],
+      //création du champs value pour le btn détails
+      value: ''
     };
+    // Cette liaison est nécéssaire afin de permettre l'utilisation de `this` dans la fonction de rappel.
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   };
   // récupérer l'API
   componentDidMount() {
@@ -39,6 +45,13 @@ class Film extends React.Component {
     e.preventDefault();   
     console.log('Le lien a été cliqué.'); 
     // alert("bon au moins ca ca marche");
+  }
+  handleChange(event) {    
+    this.setState({value: event.target.value});  
+  }
+  handleSubmit(event) {
+    alert('id : ' + this.state.id);
+    event.preventDefault();
   }
   render() {
     // console.log('test');
@@ -65,7 +78,12 @@ class Film extends React.Component {
               <div className="ListeTitre">{item.title}</div>
               <div className="ListeDateSortie">{item.release_date}</div>
               <div className="ListeAvis">{item.vote_average}</div>
-              <div><a href={"?id-film=" + item.id} onClick={this.handleClick} >détails</a></div>
+              <ButtonDetails />
+              {/* <form onSubmit={this.handleSubmit}> 
+                <input type=" " value={item.id} onChange={this.handleChange}/>
+                <button type="submit">Détails</button>
+              </form> */}
+              {/* <div><a href={"?id-film=" + item.id} onClick={this.handleClick} >détails</a></div> */}
               {/* onClick={nomFunction} */}
             </div>
           ))}
