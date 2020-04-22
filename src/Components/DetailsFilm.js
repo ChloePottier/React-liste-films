@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './DetailsFilm.css'
-import { render } from '@testing-library/react';
-
+// allersur ulocalhost:3000?id-film=21
 class DetailsFilms extends React.Component {
     // créer le constructeur
     constructor(props) {
@@ -21,8 +20,9 @@ class DetailsFilms extends React.Component {
         var urlcourante = document.location.href;
         // Supprimons l'éventuel dernier slash de l'URL
         // var urlcourante = urlcourante.replace(/\/$/, "");
-        
         var id = urlcourante.substring (urlcourante.lastIndexOf( "=" )+1 );
+        // var id2 = urlcourante.substring (urlcourante.indexOf( "/" ) );
+        // console.log(id2);
         var urlApi = 'https://api.themoviedb.org/3/movie/';
         var urlMovie = `${urlApi + id}?api_key=30b4239b5ea618dab97189fb606a4ed6&language=fr` ;
         fetch(urlMovie)

@@ -1,7 +1,8 @@
 // créer un composant
 //importer les composant react dont il a besoin
-import React, { Component } from 'react'
+import React, { Component } from 'react' 
 import './Film.css'
+// import DetailsFilms from './DetailsFilm';
 
 
 class Film extends React.Component {
@@ -34,7 +35,13 @@ class Film extends React.Component {
       )
   }
 
+   handleClick(e) {    
+    e.preventDefault();   
+    console.log('Le lien a été cliqué.'); 
+    // alert("bon au moins ca ca marche");
+  }
   render() {
+    // console.log('test');
     // déclaration des variables qui sont égales aux états déclarés
     var { isLoaded, items } = this.state;
     //variable de l'url de l'img
@@ -47,16 +54,19 @@ class Film extends React.Component {
       // sinon (si c'est true)
       return (
 
-        <div className="listingfilms">
+        <div className="listingfilms ">
           {/* lister les noeuds du tableau items avec map() */}
           {items.results.map(item => (
-            <div key={item.id} className="d-flex align-items-center">
+            // on définis une clé (key) on peut ajouter d'autras paramètres. ici on ajoute id=item.id
+            <div key={item.id} id={item.id} className="d-flex align-items-center rowFilm" >
               {/* url de l'image + nom img de l'api */}
+              {/* onClick={this.handleClick} */}
               <div className="listeImg"><img src={urlImg + item.poster_path} alt={item.title} /></div>
               <div className="ListeTitre">{item.title}</div>
               <div className="ListeDateSortie">{item.release_date}</div>
               <div className="ListeAvis">{item.vote_average}</div>
-              <div><a href={"?id-film=" + item.id}>détails</a></div>
+              <div><a href={"?id-film=" + item.id} onClick={this.handleClick} >détails</a></div>
+              {/* onClick={nomFunction} */}
             </div>
           ))}
         </div>

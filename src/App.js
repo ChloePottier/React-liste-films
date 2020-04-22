@@ -6,6 +6,7 @@ import DetailFilm from './Components/DetailsFilm'
 import './App.css'
 class App extends React.Component {
 
+
   render() {
     return (
       <React.Fragment>
@@ -13,12 +14,13 @@ class App extends React.Component {
         <div className="NavBarTop">
           <NavBar />
         </div>
-        {/* <div className="allFilms">
+        
+        <div className="allFilms">
           <Film />
-        </div> */}
-        <div className="DetailFilm">
-          <DetailFilm/>
         </div>
+        {/* <div className="DetailFilm">
+          <DetailFilm/>
+        </div> */}
       </React.Fragment>
     );
   }
