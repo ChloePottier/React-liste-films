@@ -30,9 +30,10 @@ class DetailsFilms extends React.Component {
             .then(result => result.json())
             .then(
                 (json) => {
+                    //mettre l'état à jour isLoaded passe à true, 
                     this.setState({
                         isLoaded: true,
-                        //items = fichier json
+                        //le tableau item = données du json
                         items: json
                     });
                 },

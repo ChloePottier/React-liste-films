@@ -1,0 +1,6 @@
+ul{list-style: none;}
+.listeImg img{max-width: 50px;}
+.ListeTitre{ font-weight: 600; width:20%;}
+.ListeDescription{width: 50%;}
+.rowFilm{margin-top: .5rem; padding-bottom: .5rem; border-bottom: solid 1px #a1a1a1 ;}
+.ListeDateSortie,.ListeAvis{width: 15%;}
