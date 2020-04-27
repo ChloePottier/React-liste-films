@@ -6,11 +6,10 @@ function Search({recherche, search}){
         <div className="search ">
             <input type="text" 
             placeholder="Rechercher un film" 
-            className="searchBox" 
+            className="form-control ml-2" 
             onChange={recherche} 
             //quand on presse la touche entrer cela déclenche la fonction
             onKeyPress={search}
-            class="form-control ml-2"
             />
         </div>
     )

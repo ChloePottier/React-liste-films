@@ -1,12 +1,11 @@
-// import React, from 'react'
 import React, { useState } from 'react';
 import './App.css'
 // import Film from './Components/Film'
 import NavBar from './Components/NavBar'
 import Search from './Components/Search'
 import Results from './Components/Results'
+import Popup from './Components/Popup'
 import axios from 'axios'
-// import DetailFilm from './Components/DetailsFilm'
 import './App.css'
 // import ButtonDetails from './Components/ButtonDetails'
 // class App extends React.Component {
@@ -36,51 +35,64 @@ import './App.css'
 // ici on l'a appelé state mais ca aurait pu être n'importe quoi
 //useState remplace this.state. on lui passent les états initiaux
     let [state, setState] = useState({
-      s: "",//string
-      results: [] // tableau (depuis l'api)
+      s: "",// état de la recherche.String
+      results: [], // état du résultat de la recherche. Tableau (depuis l'api, fichier json)
+      selected: {} // état de la popup. Objet
     });
 // déclaration de la variable {search} c'est elle qui va porter les données plus bas :
 // <Search recherche={recherche} search={search}/>
-const search = (e) => {
+  const search = (e) => {
 
-  //si l'évenement est stricte égale à la touche entrer est pressée alors
-  if(e.key === "Enter"){
-    // on va chercher dans l'api avec axios, tous les film en raport avec ce qui envoyé dans input
-    axios('https://api.themoviedb.org/3/search/movie?api_key=30b4239b5ea618dab97189fb606a4ed6&language=fr&query='+ state.s)
-    // on fait la boucle dans les composants  result(s).js
+    //si l'évenement est stricte égale à la touche entrer est pressée alors
+    if(e.key === "Enter"){
+      // on va chercher dans l'api avec axios, tous les film en raport avec ce qui envoyé dans input
+      axios('https://api.themoviedb.org/3/search/movie?api_key=30b4239b5ea618dab97189fb606a4ed6&language=fr&query='+ state.s)
+      // on fait la boucle dans les composants  result(s).js
+      .then(({data}) => {
+        //quand il y a des données, results = ces données
+        let results = data;
+        // mettre l'état. 
+        setState(prevState => {
+          return { 
+            //Spread synthaxe. on retourne l'objet this.state 
+            ...prevState, 
+          //retourne l'état results qui est égale au array results du map (dans les functions result.js et results.js)
+          results: results.results}
+          //etat result: données.ancrage du tableau
+        })
+
+      });
+    }
+  }
+  // on déclare la var recherche qui servira en bas // <Search recherche={recherche} search={search}/>
+  const recherche = (e) =>{
+    let maRecherche = e.target.value;
+    // permet de changer l'état : l'état précédent prend  la valeur du input
+    setState( prevState => {
+      // et on retourne ce résultat dans l'état s
+      return{   
+        //Spread synthaxe. on retourne l'objet this.state    
+        ...prevState, 
+        // l'état s prend la valeur de l'input
+        s: maRecherche}
+    });
+
+  }
+  const openpopup = (e, id)=> {
+    axios('https://api.themoviedb.org/3/movie/' + id + '?api_key=30b4239b5ea618dab97189fb606a4ed6&language=fr&query=iron')
     .then(({data}) => {
-      //quand il y a des données, results = ces données
-      let results = data;
-      // mettre l'état. 
+      let result = data; 
       setState(prevState => {
         return { 
           //Spread synthaxe. on retourne l'objet this.state 
           ...prevState, 
-        //retourne l'état results qui est égale au array results du map (dans les functions result.js et results.js)
-        results: results.results}
-        //etat result: données.ancrage du tableau
-      })
-
+        selected: result}
+        });
+        
     });
-    
-
+    console.log(state.selected)
 
   }
-}
-// on déclare la var recherche qui servira en bas // <Search recherche={recherche} search={search}/>
-const recherche = (e) =>{
-  let maRecherche = e.target.value;
-  // permet de changer l'état : l'état précédent prend  la valeur du input
-  setState( prevState => {
-    // et on retourne ce résultat dans l'état s
-    return{   
-      //Spread synthaxe. on retourne l'objet this.state    
-      ...prevState, 
-      // l'état s prend la valeur de l'input
-      s: maRecherche}
-  });
-
-}
     return (
       <div className="App">
           <NavBar />
@@ -91,7 +103,10 @@ const recherche = (e) =>{
               <Search recherche={recherche} search={search}/>
               {/* Dans Results on affiche l'état de results: 
               résultat de la recherche  */}
-              <Results results={state.results} />
+              
+              <Results results={state.results} openpopup={openpopup}/>
+               {/* <Popup selected={state.selected}/> */}
+               {(typeof state.selected.title != "undefined") ? <Popup selected={state.selected}  /> : false}
             </div>
 
           </div>
@@ -99,6 +114,6 @@ const recherche = (e) =>{
       </div>
       
     );
-
+  
 }
 export default App;
