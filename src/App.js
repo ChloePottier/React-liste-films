@@ -4,6 +4,7 @@ import './App.css'
 import NavBar from './Components/NavBar'
 import Search from './Components/Search'
 import Results from './Components/Results'
+import Trending from './Components/Trending'
 import Popup from './Components/Popup'
 import axios from 'axios'
 import './App.css'
@@ -37,8 +38,22 @@ import './App.css'
     let [state, setState] = useState({
       s: "",// état de la recherche.String
       results: [], // état du résultat de la recherche. Tableau (depuis l'api, fichier json)
-      selected: {} // état de la popup. Objet
+      selected: {}, // état de la popup. Objet
+      trends:[]
     });
+    // const trending = (e) => {
+      axios('https://api.themoviedb.org/3/trending/movie/day?api_key=30b4239b5ea618dab97189fb606a4ed6&language=fr')
+      .then(({data}) => {
+        let trends = data; 
+        setState(prevState => {
+          return { 
+            //Spread synthaxe. on retourne l'objet this.state 
+            ...prevState, 
+          trends: trends.results}
+          });
+          
+      });
+    // }
 // déclaration de la variable {search} c'est elle qui va porter les données plus bas :
 // <Search recherche={recherche} search={search}/>
   const search = (e) => {
@@ -86,13 +101,15 @@ import './App.css'
         return { 
           //Spread synthaxe. on retourne l'objet this.state 
           ...prevState, 
-        selected: result}
+        result: result}
         });
         
     });
     console.log(state.selected)
 
   }
+
+  console.log(state.trends[0])
     return (
       <div className="App">
           <NavBar />
@@ -103,10 +120,10 @@ import './App.css'
               <Search recherche={recherche} search={search}/>
               {/* Dans Results on affiche l'état de results: 
               résultat de la recherche  */}
-              
-              <Results results={state.results} openpopup={openpopup}/>
-               {/* <Popup selected={state.selected}/> */}
-               {(typeof state.selected.title != "undefined") ? <Popup selected={state.selected}  /> : false}
+            {(typeof state.selected.title != "undefined") ? <Popup selected={state.selected}  /> : false}
+              {/* {(typeof state.results != []) ? <Results results={state.results} openpopup={openpopup} /> : <Trending trends={state.trends}/> } */}
+              <Results results={state.results} openpopup={openpopup} />
+              <Trending trends={state.trends}/>
             </div>
 
           </div>
