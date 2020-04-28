@@ -6,10 +6,16 @@ function Trending({trends}){
 
     return(
         trends.map(trend => (
-        <div key={trend.id}>
-            <div className=""><img src={urlImg + trend.backdrop_path} alt={trend.title} /></div>
-            <div className="">{trend.title}</div>
-        </div>))
-    )
+        
+        
+            <div className="carousel-inner" key={trend.id}>
+                    <div className="carousel-item active">
+                        <img src={urlImg + trend.backdrop_path} className="d-block w-100" alt={trend.title} />
+                    </div>
+            
+            </div>
+        ))
+        
+        )
 }
 export default Trending;
