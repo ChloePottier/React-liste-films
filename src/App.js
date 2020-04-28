@@ -93,23 +93,24 @@ import './App.css'
     });
 
   }
-  const openpopup = (e, id)=> {
+  const openpopup = (e, id) => {
     axios('https://api.themoviedb.org/3/movie/' + id + '?api_key=30b4239b5ea618dab97189fb606a4ed6&language=fr&query=iron')
     .then(({data}) => {
       let result = data; 
+      console.log(result);
       setState(prevState => {
         return { 
           //Spread synthaxe. on retourne l'objet this.state 
           ...prevState, 
-        result: result}
+        selected: result}
         });
         
     });
-    console.log(state.selected)
-
+    // console.log(state.selected)
   }
+ 
 
-  console.log(state.trends[0])
+  // console.log(state.trends[0])
     return (
       <div className="App">
           <NavBar />
