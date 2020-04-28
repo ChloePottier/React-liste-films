@@ -87,6 +87,9 @@ function App() {
     });
     // console.log(state.selected)
   }
+  // const closepopup = (e) => {
+
+  // }
  
 
   // console.log(state.trends[0])
